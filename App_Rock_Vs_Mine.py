@@ -120,6 +120,68 @@ try:
   st.plotly_chart(fig2, use_container_width = True)
 except Exception as e:
   st.warning("SHAP visualization not supported in this environment.")
+st.subheader("🌊 3D Ocean Minefield Map")
+# generate random objects
+num_points = 40
+x = np.random.uniform(-50,50,num_points)
+y = np.random.uniform(-50,50,num_points)
+z = np.random.uniform(-20,0,num_points)
+
+labels = np.random.choice(["Rock","Mine"], num_points)
+
+colors = ["green" if l=="Rock" else "red" for l in labels]
+
+fig3d = go.Figure(data=[
+    go.Scatter3d(
+        x=x,
+        y=y,
+        z=z,
+        mode='markers',
+        marker=dict(
+            size=6,
+            color=colors
+        ),
+        text=labels
+    )
+])
+
+fig3d.update_layout(
+    template="plotly_dark",
+    scene=dict(
+        xaxis_title="Ocean X",
+        yaxis_title="Ocean Y",
+        zaxis_title="Depth"
+    ),
+    title="3D Ocean Object Map"
+)
+
+
+st.plotly_chart(fig3d, use_container_width=True)
+st.subheader("🚢 Autonomous Submarine Navigation")
+
+sub_x = np.linspace(-50,50,50)
+sub_y = np.sin(sub_x/10)*20
+
+fig_nav = go.Figure()
+
+fig_nav.add_trace(
+    go.Scatter(
+        x=sub_x,
+        y=sub_y,
+        mode="lines+markers",
+        name="Submarine Path",
+        line=dict(color="cyan", width=4)
+    )
+)
+
+fig_nav.update_layout(
+    template="plotly_dark",
+    title="AI Submarine Navigation Route",
+    xaxis_title="Ocean X",
+    yaxis_title="Ocean Y"
+)
+
+st.plotly_chart(fig_nav, use_container_width=True)
 if st.sidebar.button("🌊 Scan Ocean"):
     input_data = np.random.rand(60)
     input_data_reshaped = input_data.reshape(1,-1)
