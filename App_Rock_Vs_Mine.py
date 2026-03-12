@@ -109,7 +109,7 @@ except Exception as e:
 if st.sidebar.button("🌊 Scan Ocean"):
     input_data = np.random.rand(60)
     input_data_reshaped = input_data.reshape(1,-1)
-tab1, tab2, tab3, tab4 = st.tabs(["🌊 Sonar Sweep","📡 Radar Scanner","🌊 3D Ocean Map","🤖 Autonomous AI"])
+tab1 = st.tabs(["🌊 Sonar Sweep"])[0]
 with tab1:
 
     st.subheader("🌊 Real-Time Sonar Sweep")
