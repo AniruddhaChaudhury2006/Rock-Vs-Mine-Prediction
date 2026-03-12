@@ -236,7 +236,74 @@ with tab1:
 
         import time
         time.sleep(1)
-        
+        st.subheader("🚢 Live Submarine Radar Tracking")
+
+import time
+
+radar_area = st.empty()
+
+# initial positions
+sub_x = 0
+sub_y = 0
+
+mine_x = np.random.uniform(-50,50,5)
+mine_y = np.random.uniform(-50,50,5)
+
+if st.button("Start Autonomous Navigation"):
+
+    for step in range(60):
+
+        # submarine movement
+        sub_x += np.random.uniform(1,3)
+        sub_y += np.sin(step/5)*2
+
+        # mines slight movement
+        mine_x += np.random.uniform(-0.5,0.5,5)
+        mine_y += np.random.uniform(-0.5,0.5,5)
+
+        fig = go.Figure()
+
+        # mines
+        fig.add_trace(
+            go.Scatter(
+                x=mine_x,
+                y=mine_y,
+                mode="markers",
+                marker=dict(size=12,color="red"),
+                name="Mines"
+            )
+        )
+
+        # submarine
+        fig.add_trace(
+            go.Scatter(
+                x=[sub_x],
+                y=[sub_y],
+                mode="markers",
+                marker=dict(size=15,color="cyan"),
+                name="Submarine"
+            )
+        )
+
+        fig.update_layout(
+            template="plotly_dark",
+            title="AI Submarine Radar Tracking",
+            xaxis=dict(range=[-60,60]),
+            yaxis=dict(range=[-60,60])
+        )
+
+        radar_area.plotly_chart(fig, use_container_width=True)
+
+        time.sleep(0.2)
+
+fig.update_layout(
+    template="plotly_dark",
+    plot_bgcolor="black",
+    paper_bgcolor="black",
+    xaxis=dict(range=[-60,60], gridcolor="green"),
+    yaxis=dict(range=[-60,60], gridcolor="green"),
+    title="AI Submarine Radar Tracking"
+)
 
     
 
