@@ -21,10 +21,22 @@ if auto:
   default = np.random.rand(60)
 else:
   default = np.zeros(60)
+st.sidebar.subheader("Smart Sonar Controls")
+low = st.sidebar.slider("Low Frequency Signals (S1-S10)",0.0,1.0,0.5)
+low_mid = st.sidebar.slider("Low-Mid Signals (S11-S20)",0.0,1.0,0.5)
+mid = st.sidebar.slider("Mid Signals (S21-S30)",0.0,1.0,0.5)
+mid_high = st.sidebar.slider("Mid-High Signals (S31-S40)",0.0,1.0,0.5)
+high = st.sidebar.slider("High Signals (S41-S50)",0.0,1.0,0.5)
+ultra = st.sidebar.slider("Ultra High Signals (S51-S60)",0.0,1.0,0.5)
 input_data = []
-for i in range(60):
-  val = st.number_input(f"Value {i + 1}", value = float(default[i]))
-  input_data.append(val)
+input_data.extend([low]*10)
+input_data.extend([low_mid]*10)
+input_data.extend([mid]*10)
+input_data.extend([mid_high]*10)
+input_data.extend([high]*10)
+input_data.extend([ultra]*10)
+input_data = np.array(input_data)
+input_data_reshaped = input_data.reshape(1,-1)
 input_data_as_numpy_array = np.asarray(input_data)
 input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
 if st.sidebar.button("Predict"):
