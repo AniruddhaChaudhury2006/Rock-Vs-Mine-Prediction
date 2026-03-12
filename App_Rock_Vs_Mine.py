@@ -59,7 +59,8 @@ try:
   st.plotly_chart(fig2, use_container_width = True)
 except Exception as e:
   st.warning("SHAP visualization not supported in this environment.")
-
+if st.sidebar.button("🌊 Scan Ocean"):
+    input_data = np.random.rand(60)
 
 
 
