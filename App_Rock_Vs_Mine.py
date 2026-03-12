@@ -149,7 +149,7 @@ with tab1:
         ],
         frames=frames
     )
-fig.update_layout(
+    fig.update_layout(
     polar=dict(
         radialaxis=dict(visible=True, range=[0,1])
     ),
