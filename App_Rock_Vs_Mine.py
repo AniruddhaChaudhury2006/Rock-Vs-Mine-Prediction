@@ -240,5 +240,72 @@ if st.session_state.scan:
         chart.plotly_chart(fig, use_container_width=True)
 
         time.sleep(0.05)
+    st.subheader("🚢 Live Ocean Surveillance System")
 
+# chart container
+ocean_chart = st.empty()
+
+# generate mines
+num_mines = 8
+mine_x = np.random.uniform(-40,40,num_mines)
+mine_y = np.random.uniform(-40,40,num_mines)
+
+# submarine starting position
+sub_x = -50
+sub_y = 0
+
+for step in range(80):
+
+    sub_x += 1.2
+    sub_y = np.sin(sub_x/8)*15
+
+    # move mines slightly
+    mine_x = mine_x + np.random.uniform(-0.3,0.3,num_mines)
+    mine_y = mine_y + np.random.uniform(-0.3,0.3,num_mines)
+
+    fig_ocean = go.Figure()
+
+    # mines
+    fig_ocean.add_trace(
+        go.Scatter(
+            x=mine_x,
+            y=mine_y,
+            mode="markers",
+            marker=dict(size=14,color="red"),
+            name="Mines"
+        )
+    )
+
+    # submarine
+    fig_ocean.add_trace(
+        go.Scatter(
+            x=[sub_x],
+            y=[sub_y],
+            mode="markers",
+            marker=dict(size=18,color="cyan"),
+            name="Submarine"
+        )
+    )
+
+    # radar range
+    fig_ocean.add_shape(
+        type="circle",
+        xref="x", yref="y",
+        x0=sub_x-15, y0=sub_y-15,
+        x1=sub_x+15, y1=sub_y+15,
+        line=dict(color="lime")
+    )
+
+    fig_ocean.update_layout(
+        template="plotly_dark",
+        title="Live Submarine Navigation + Mine Tracking",
+        xaxis_title="Ocean X",
+        yaxis_title="Ocean Y",
+        xaxis=dict(range=[-60,60]),
+        yaxis=dict(range=[-60,60])
+    )
+
+    ocean_chart.plotly_chart(fig_ocean, use_container_width=True)
+
+    time.sleep(0.15)
 
