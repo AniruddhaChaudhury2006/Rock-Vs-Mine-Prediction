@@ -16,11 +16,6 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.1, strat
 model = LogisticRegression(max_iter = 1000)
 model.fit(X_train, Y_train)
 st.sidebar.header("Signal Controls")
-auto = st.sidebar.button("Autofill Signals")
-if auto:
-  default = np.random.rand(60)
-else:
-  default = np.zeros(60)
 st.sidebar.subheader("🌊 Sonar Wave Generator")
 amplitude = st.sidebar.slider("Signal strength",0.1,1.0,0.5)
 frequency = st.sidebar.slider("Wave Frequency",0.1,10.0,3.0)
@@ -31,8 +26,6 @@ noise_signal = np.random.normal(0, noise, 60)
 input_data = wave + noise_signal
 input_data = np.clip(input_data, 0, 1)
 input_data_reshaped = input_data.reshape(1,-1)
-input_data_as_numpy_array = np.asarray(input_data)
-input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
 wave_fig = px.line(x = range(60), y = input_data, title = "Live Sonar Signal Waveform")
 st.plotly_chart(wave_fig, use_container_width = True)
 if st.sidebar.button("Predict"):
@@ -61,6 +54,25 @@ except Exception as e:
   st.warning("SHAP visualization not supported in this environment.")
 if st.sidebar.button("🌊 Scan Ocean"):
     input_data = np.random.rand(60)
+    input_data_reshaped = input_data.reshape(1,-1)
+tab1, tab2, tab3, tab4 = st.tabs(["🌊 Sonar Sweep","📡 Radar Scanner","🌊 3D Ocean Map","🤖 Autonomous AI"])
+with tab1:
+    st.subheader("🌊 Real-Time Sonar Sweep")
+    theta = np.linspace(0, 360, 60)
+    frames = []
+    for i in range(60):
+      frames.append(go.Frame(data = [go.ScatterPolar(r = input_data, theta = theta, mode = 'lines', line = dict(color = 'lime', width = 3)), go.Scatterpolar(r = [1], theta = [theta[i]], mode = 'markers', marker = dict(size(15)))]))
+    fig = go.Figure(data=[go.Scatterpolar(r = input_data, theta = theta, mode = "lines", line = dict(color = "lime", width = 3))], frames = frames)
+    fig.update_layout(polar = dict(radialaxis = dict(visible = True, range = [0, 1])), showlegend = False, title = , updatemenus = [dict(type = "buttons", buttons = [dict(label = "Start Scan", method = 'animate', args = [None])])])
+    st.plotly_chart(fig, use_container_width=True)
 
+with tab2:
+    # radar code
+
+with tab3:
+    # 3D ocean code
+
+with tab4:
+    # AI navigation
 
 
