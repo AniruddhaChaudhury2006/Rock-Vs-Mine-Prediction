@@ -39,7 +39,7 @@ if st.sidebar.button("Predict"):
      st.error('Object is mine💣')
   fig = go.Figure(go.Indicator(mode = 'gauge + number', value = mine_prob * 100, title = {'text' : 'Mine probability'}, gauge = {'axis' : {'range': [0, 100]}}))
   st.plotly_chart(fig, use_container_width = True)
-  radar = go.figure()
+  radar = go.Figure()
   radar.add_trace(go.Scatterpolar(r = inputs[:10], theta = [f"S{i + 1}" for i in range(10)], fill = 'toself', name = 'Signals'))
   radar.update_layout(polar = dict(radialaxis = dict(visible = True)), showlegend = False, title = "Sonar Signal Radar Chart")
   st.plotly_chart(radar, use_container_width = True)
