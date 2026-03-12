@@ -149,22 +149,33 @@ with tab1:
         ],
         frames=frames
     )
-
-    fig.update_layout(
-        polar=dict(radialaxis=dict(visible=True, range=[0,1])),
-        showlegend=False,
-        title="Animated Sonar Radar Sweep",
-        updatemenus=[
-            dict(
-                type="buttons",
-                buttons=[dict(
+fig.update_layout(
+    polar=dict(
+        radialaxis=dict(visible=True, range=[0,1])
+    ),
+    showlegend=False,
+    title="Animated Sonar Radar Sweep",
+    updatemenus=[
+        dict(
+            type="buttons",
+            showactive=False,
+            buttons=[
+                dict(
                     label="Start Scan",
                     method="animate",
-                    args=[None]
-                )]
-            )
-        ]
-    )
+                    args=[
+                        None,
+                        {
+                            "frame": {"duration": 50, "redraw": True},
+                            "fromcurrent": True,
+                            "transition": {"duration": 0}
+                        }
+                    ],
+                )
+            ]
+        )
+    ]
+)
 
     fig = go.Figure(data=[go.Scatterpolar(r = input_data, theta = theta, mode = "lines", line = dict(color = "lime", width = 3))], frames = frames)
     fig.update_layout(polar = dict(radialaxis = dict(visible = True, range = [0, 1])), showlegend = False, title = "Animated Sonar Radar Sweep", updatemenus = [dict(type = "buttons", buttons = [dict(label = "Start Scan", method = 'animate', args = [None])])])
