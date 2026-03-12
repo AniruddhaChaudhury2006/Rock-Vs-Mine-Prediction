@@ -139,40 +139,41 @@ with tab1:
 
         for i in range(60):
 
-            fig = go.Figure()
+          fig = go.Figure()
 
-            fig.add_trace(
-                go.Scatterpolar(
-                    r=input_data,
-                    theta=theta,
-                    mode="lines",
-                    line=dict(color="lime", width=3)
-                )
-            )
+          fig.add_trace(
+        go.Scatterpolar(
+            r=input_data,
+            theta=theta,
+            mode="lines",
+            line=dict(color="lime", width=3)
+        )
+    )
 
-            fig.add_trace(
-                go.Scatterpolar(
-                    r=[0,1],
-                    theta=[theta[i], theta[i]],
-                    mode="lines",
-                    line=dict(color="lime", width=5)
-                )
-            )
-           fig.update_layout(
-    template="plotly_dark",
-    polar=dict(
-        bgcolor="black",
-        radialaxis=dict(visible=True, range=[0,1], gridcolor="green"),
-        angularaxis=dict(gridcolor="green")
-    ),
-    showlegend=False,
-    title="Live Sonar Radar Sweep"
-)
+          fig.add_trace(
+        go.Scatterpolar(
+            r=[0,1],
+            theta=[theta[i], theta[i]],
+            mode="lines",
+            line=dict(color="lime", width=5)
+        )
+    )
 
-            chart.plotly_chart(fig, use_container_width=True)
+          fig.update_layout(
+        template="plotly_dark",
+        polar=dict(
+            bgcolor="black",
+            radialaxis=dict(visible=True, range=[0,1], gridcolor="green"),
+            angularaxis=dict(gridcolor="green")
+        ),
+        showlegend=False,
+        title="Live Sonar Radar Sweep"
+    )
 
-            import time
-            time.sleep(1)
+         chart.plotly_chart(fig, use_container_width=True)
+
+         import time
+         time.sleep(1)
             
         
 
