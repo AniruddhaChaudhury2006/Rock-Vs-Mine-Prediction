@@ -153,10 +153,9 @@ with tab1:
             chart.plotly_chart(fig, use_container_width=True)
 
             import time
-            time.sleep(0.05)        ]
-            )
-        ]
-
+            time.sleep(0.05)        
+            
+        
     st.plotly_chart(fig, use_container_width=True, key="sonar_sweep")
 
     
