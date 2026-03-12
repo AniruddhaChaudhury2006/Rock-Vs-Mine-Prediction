@@ -54,7 +54,8 @@ label {
     padding: 20px;
     border-radius: 12px;
 }
-""", unsafe_allow_html=True)st.title("🔎 🧠 Futuristic Rock vs Mine AI Detection System")
+""", unsafe_allow_html=True)
+st.title("🔎 🧠 Futuristic Rock vs Mine AI Detection System")
 sonar_data = pd.read_csv('sonar_dataset.csv', header = None)
 X = sonar_data.drop(columns=60, axis=1)
 Y = sonar_data[60]
