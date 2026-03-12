@@ -9,7 +9,7 @@ from sklearn.linear_model import LogisticRegression
 st.set_page_config(page_title = "Rock Vs Mine Prediction System", layout = 'wide')
 st.markdown("""<style> body { background-color: #0E1117; } .stApp {  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364); color:white; </style>""", unsafe_allow_html = True)
 st.title("🔎 🧠 Futuristic Rock vs Mine AI Detection System")
-sonar_data = pd.read_csv('/content/sonar dataset.csv', header = None)
+sonar_data = pd.read_csv('sonar dataset.csv', header = None)
 X = sonar_data.drop(columns=60, axis=1)
 Y = sonar_data[60]
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.1, stratify = Y, random_state = 25)
