@@ -158,25 +158,21 @@ with tab1:
                     line=dict(color="lime", width=5)
                 )
             )
-
-            fig.update_layout(
-                polar=dict(radialaxis=dict(visible=True, range=[0,1])),
-                showlegend=False,
-                title="Live Sonar Radar Sweep"
-            )
-            fig.update_layout(
+           fig.update_layout(
     template="plotly_dark",
     polar=dict(
         bgcolor="black",
-        radialaxis=dict(gridcolor="green"),
+        radialaxis=dict(visible=True, range=[0,1], gridcolor="green"),
         angularaxis=dict(gridcolor="green")
-    )
+    ),
+    showlegend=False,
+    title="Live Sonar Radar Sweep"
 )
 
             chart.plotly_chart(fig, use_container_width=True)
 
             import time
-            time.sleep(0.05)
+            time.sleep(0.1)
             
         
 
