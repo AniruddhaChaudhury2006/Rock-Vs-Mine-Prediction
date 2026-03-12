@@ -10,50 +10,57 @@ st.set_page_config(page_title = "Rock Vs Mine Prediction System", layout = 'wide
 st.markdown("""
 <style>
 
-/* App background */
+/* Main app background */
 .stApp {
     background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 }
 
-/* Main text */
-html, body, [class*="css"]  {
-    color: #FFFFFF;
+/* Force ALL text to white */
+* {
+    color: white !important;
 }
 
-/* Sidebar */
+/* Sidebar styling */
 section[data-testid="stSidebar"] {
-    background-color: #0E1117;
-    color: white;
+    background-color: #0E1117 !important;
+}
+
+/* Tab text */
+button[data-baseweb="tab"] {
+    color: white !important;
+    font-weight: bold;
+}
+
+/* Slider labels */
+div[data-baseweb="slider"] label {
+    color: white !important;
+}
+
+/* Widget labels */
+label {
+    color: white !important;
 }
 
 /* Headers */
 h1, h2, h3 {
-    color: #00F5FF;
-}
-
-/* Subheaders */
-h4, h5, h6 {
-    color: #7DF9FF;
+    color: #00F5FF !important;
 }
 
 /* Buttons */
 .stButton>button {
     background-color: #00F5FF;
-    color: black;
+    color: black !important;
     border-radius: 8px;
 }
 
-/* Slider text */
-label {
-    color: white;
-}
-
-</style>
+/* Chart containers */
 .block-container {
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.35);
     padding: 20px;
     border-radius: 12px;
 }
+
+</style>
 """, unsafe_allow_html=True)
 st.title("🔎 🧠 Futuristic Rock vs Mine AI Detection System")
 sonar_data = pd.read_csv('sonar_dataset.csv', header = None)
