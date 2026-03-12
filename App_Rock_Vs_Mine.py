@@ -102,15 +102,15 @@ with col2:
           st.success("✅ SAFE OBJECT DETECTED")
        else:
           st.error("🚨 MINE DETECTED - TAKE ACTION")
-     fig = go.Figure(go.Indicator(mode = 'gauge + number', value = mine_prob * 100, title = {'text' : 'Mine probability'}, gauge = {'axis' : {'range': [0, 100]}}))
-     fig.update_layout(template="plotly_dark")
-     st.plotly_chart(fig, use_container_width = True)
+       fig = go.Figure(go.Indicator(mode = 'gauge + number', value = mine_prob * 100, title = {'text' : 'Mine probability'}, gauge = {'axis' : {'range': [0, 100]}}))
+       fig.update_layout(template="plotly_dark")
+       st.plotly_chart(fig, use_container_width = True)
   
-     radar = go.Figure()
-     radar.add_trace(go.Scatterpolar(r = input_data[:10], theta = [f"S{i + 1}" for i in range(10)], fill = 'toself', name = 'Signals'))
-     radar.update_layout(polar = dict(radialaxis = dict(visible = True)), showlegend = False, title = "Sonar Signal Radar Chart")
-     radar.update_layout(template="plotly_dark")
-     st.plotly_chart(radar, use_container_width = True)
+       radar = go.Figure()
+       radar.add_trace(go.Scatterpolar(r = input_data[:10], theta = [f"S{i + 1}" for i in range(10)], fill = 'toself', name = 'Signals'))
+       radar.update_layout(polar = dict(radialaxis = dict(visible = True)), showlegend = False, title = "Sonar Signal Radar Chart")
+       radar.update_layout(template="plotly_dark")
+       st.plotly_chart(radar, use_container_width = True)
   
 try:
   st.subheader("🧠 SHAP Explainable AI")
