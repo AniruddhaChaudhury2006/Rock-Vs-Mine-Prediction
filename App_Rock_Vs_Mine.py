@@ -114,7 +114,7 @@ with tab1:
 
     st.subheader("🌊 Real-Time Sonar Sweep")
 
-    theta = np.linspace(0, 360, 60)
+    theta = np.linspace(0, 360, 60, endpoint=False)
 
     frames = []
 
@@ -132,7 +132,7 @@ with tab1:
                         r=[1],
                         theta=[theta[i]],
                         mode="markers",
-                        marker=dict(size=15)
+                        marker=dict(size=15, color="lime")
                     )
                 ]
             )
@@ -149,33 +149,34 @@ with tab1:
         ],
         frames=frames
     )
+
     fig.update_layout(
-    polar=dict(
-        radialaxis=dict(visible=True, range=[0,1])
-    ),
-    showlegend=False,
-    title="Animated Sonar Radar Sweep",
-    updatemenus=[
-        dict(
-            type="buttons",
-            showactive=False,
-            buttons=[
-                dict(
-                    label="Start Scan",
-                    method="animate",
-                    args=[
-                        None,
-                        {
-                            "frame": {"duration": 50, "redraw": True},
-                            "fromcurrent": True,
-                            "transition": {"duration": 0}
-                        }
-                    ],
-                )
-            ]
-        )
-    ]
-)
+        polar=dict(radialaxis=dict(visible=True, range=[0,1])),
+        showlegend=False,
+        title="Animated Sonar Radar Sweep",
+        updatemenus=[
+            dict(
+                type="buttons",
+                showactive=False,
+                buttons=[
+                    dict(
+                        label="Start Scan",
+                        method="animate",
+                        args=[
+                            None,
+                            {
+                                "frame": {"duration": 50, "redraw": True},
+                                "fromcurrent": True,
+                                "transition": {"duration": 0}
+                            }
+                        ],
+                    )
+                ]
+            )
+        ]
+    )
+
+    st.plotly_chart(fig, use_container_width=True, key="sonar_sweep")
 
     
 
