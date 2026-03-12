@@ -172,7 +172,7 @@ with tab1:
             chart.plotly_chart(fig, use_container_width=True)
 
             import time
-            time.sleep(0.1)
+            time.sleep(1)
             
         
 
