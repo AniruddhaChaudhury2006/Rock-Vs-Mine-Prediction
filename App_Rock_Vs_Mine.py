@@ -116,65 +116,46 @@ with tab1:
 
     theta = np.linspace(0, 360, 60, endpoint=False)
 
-    frames = []
+    chart = st.empty()
 
-    for i in range(60):
-        frames.append(
-            go.Frame(
-                data=[
-                    go.Scatterpolar(
-                        r=input_data,
-                        theta=theta,
-                        mode="lines",
-                        line=dict(color="lime", width=3)
-                    ),
-                    go.Scatterpolar(
-                        r=[1],
-                        theta=[theta[i]],
-                        mode="markers",
-                        marker=dict(size=15, color="lime")
-                    )
-                ]
+    if st.button("Start Scan"):
+
+        for i in range(60):
+
+            fig = go.Figure()
+
+            # sonar circle
+            fig.add_trace(
+                go.Scatterpolar(
+                    r=input_data,
+                    theta=theta,
+                    mode="lines",
+                    line=dict(color="lime", width=3)
+                )
             )
-        )
 
-    fig = go.Figure(
-        data=[
-            go.Scatterpolar(
-                r=input_data,
-                theta=theta,
-                mode="lines",
-                line=dict(color="lime", width=3)
+            # rotating radar beam
+            fig.add_trace(
+                go.Scatterpolar(
+                    r=[0, 1],
+                    theta=[theta[i], theta[i]],
+                    mode="lines",
+                    line=dict(color="lime", width=5)
+                )
             )
-        ],
-        frames=frames
-    )
 
-    fig.update_layout(
-        polar=dict(radialaxis=dict(visible=True, range=[0,1])),
-        showlegend=False,
-        title="Animated Sonar Radar Sweep",
-        updatemenus=[
-            dict(
-                type="buttons",
-                showactive=False,
-                buttons=[
-                    dict(
-                        label="Start Scan",
-                        method="animate",
-                        args=[
-                            None,
-                            {
-                                "frame": {"duration": 50, "redraw": True},
-                                "fromcurrent": True,
-                                "transition": {"duration": 0}
-                            }
-                        ],
-                    )
-                ]
+            fig.update_layout(
+                polar=dict(radialaxis=dict(visible=True, range=[0,1])),
+                showlegend=False,
+                title="Live Sonar Radar Sweep"
+            )
+
+            chart.plotly_chart(fig, use_container_width=True)
+
+            import time
+            time.sleep(0.05)        ]
             )
         ]
-    )
 
     st.plotly_chart(fig, use_container_width=True, key="sonar_sweep")
 
