@@ -184,9 +184,14 @@ fig_nav.update_layout(
 )
 
 st.plotly_chart(fig_nav, use_container_width=True)
+if "input_data" not in st.session_state:
+    st.session_state.input_data = input_data
+
 if st.sidebar.button("🌊 Scan Ocean"):
-    input_data = np.random.rand(60)
-    input_data_reshaped = input_data.reshape(1,-1)
+    st.session_state.input_data = np.random.rand(60)
+
+input_data = st.session_state.input_data
+input_data_reshaped = input_data.reshape(1, -1)
 theta = np.linspace(0, 360, 60, endpoint=False)
 
 chart = st.empty()
@@ -234,6 +239,6 @@ if st.session_state.scan:
 
         chart.plotly_chart(fig, use_container_width=True)
 
-        time.sleep(0.1)
+        time.sleep(0.05)
 
 
