@@ -61,9 +61,26 @@ with tab1:
     theta = np.linspace(0, 360, 60)
     frames = []
     for i in range(60):
-      frames.append(go.Frame(data = [go.ScatterPolar(r = input_data, theta = theta, mode = 'lines', line = dict(color = 'lime', width = 3)), go.Scatterpolar(r = [1], theta = [theta[i]], mode = 'markers', marker = dict(size(15)))]))
+      frames.append(
+    go.Frame(
+        data=[
+            go.Scatterpolar(
+                r=input_data,
+                theta=theta,
+                mode='lines',
+                line=dict(color='lime', width=3)
+            ),
+            go.Scatterpolar(
+                r=[1],
+                theta=[theta[i]],
+                mode='markers',
+                marker=dict(size=15)
+            )
+        ]
+    )
+)
     fig = go.Figure(data=[go.Scatterpolar(r = input_data, theta = theta, mode = "lines", line = dict(color = "lime", width = 3))], frames = frames)
-    fig.update_layout(polar = dict(radialaxis = dict(visible = True, range = [0, 1])), showlegend = False, title = , updatemenus = [dict(type = "buttons", buttons = [dict(label = "Start Scan", method = 'animate', args = [None])])])
+    fig.update_layout(polar = dict(radialaxis = dict(visible = True, range = [0, 1])), showlegend = False, title = "Animated Sonar Radar Sweep", updatemenus = [dict(type = "buttons", buttons = [dict(label = "Start Scan", method = 'animate', args = [None])])])
     st.plotly_chart(fig, use_container_width=True)
 
 with tab2:
