@@ -21,24 +21,20 @@ if auto:
   default = np.random.rand(60)
 else:
   default = np.zeros(60)
-st.sidebar.subheader("Smart Sonar Controls")
-low = st.sidebar.slider("Low Frequency Signals (S1-S10)",0.0,1.0,0.5)
-low_mid = st.sidebar.slider("Low-Mid Signals (S11-S20)",0.0,1.0,0.5)
-mid = st.sidebar.slider("Mid Signals (S21-S30)",0.0,1.0,0.5)
-mid_high = st.sidebar.slider("Mid-High Signals (S31-S40)",0.0,1.0,0.5)
-high = st.sidebar.slider("High Signals (S41-S50)",0.0,1.0,0.5)
-ultra = st.sidebar.slider("Ultra High Signals (S51-S60)",0.0,1.0,0.5)
-input_data = []
-input_data.extend([low]*10)
-input_data.extend([low_mid]*10)
-input_data.extend([mid]*10)
-input_data.extend([mid_high]*10)
-input_data.extend([high]*10)
-input_data.extend([ultra]*10)
-input_data = np.array(input_data)
+st.sidebar.subheader("🌊 Sonar Wave Generator")
+amplitude = st.sidebar.slider("Signal strength",0.1,1.0,0.5)
+frequency = st.sidebar.slider("Wave Frequency",0.1,10.0,3.0)
+noise = st.sidebar.slider("Ocean Noise",0.0,0.5,0.05)
+x = np.linspace(0, 10, 60)
+wave = amplitude * np.sin(frequency * x)
+noise_signal = np.random.normal(0, noise, 60)
+input_data = wave + noise_signal
+input_data = np.clip(input_data, 0, 1)
 input_data_reshaped = input_data.reshape(1,-1)
 input_data_as_numpy_array = np.asarray(input_data)
 input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
+wave_fig = px.line(x = range(60), y = input_data, title = "Live Sonar Signal Waveform")
+st.plotly_chart(wave_fig, use_container_width = True)
 if st.sidebar.button("Predict"):
   pred = model.predict(input_data_reshaped)
   prob = model.predict_proba(input_data_reshaped)
@@ -63,5 +59,7 @@ try:
   st.plotly_chart(fig2, use_container_width = True)
 except Exception as e:
   st.warning("SHAP visualization not supported in this environment.")
+
+
 
 
