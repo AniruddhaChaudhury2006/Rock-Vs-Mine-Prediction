@@ -119,12 +119,14 @@ with tab1:
     chart = st.empty()
 
     if st.button("Start Scan"):
+        st.session_state.scan = True
+
+    if "scan" in st.session_state and st.session_state.scan:
 
         for i in range(60):
 
             fig = go.Figure()
 
-            # sonar circle
             fig.add_trace(
                 go.Scatterpolar(
                     r=input_data,
@@ -134,10 +136,9 @@ with tab1:
                 )
             )
 
-            # rotating radar beam
             fig.add_trace(
                 go.Scatterpolar(
-                    r=[0, 1],
+                    r=[0,1],
                     theta=[theta[i], theta[i]],
                     mode="lines",
                     line=dict(color="lime", width=5)
@@ -153,10 +154,9 @@ with tab1:
             chart.plotly_chart(fig, use_container_width=True)
 
             import time
-            time.sleep(0.05)        
+            time.sleep(0.05)
             
         
-    st.plotly_chart(fig, use_container_width=True, key="sonar_sweep")
 
     
 
