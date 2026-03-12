@@ -83,13 +83,5 @@ with tab1:
     fig.update_layout(polar = dict(radialaxis = dict(visible = True, range = [0, 1])), showlegend = False, title = "Animated Sonar Radar Sweep", updatemenus = [dict(type = "buttons", buttons = [dict(label = "Start Scan", method = 'animate', args = [None])])])
     st.plotly_chart(fig, use_container_width=True)
 
-with tab2:
-    # radar code
-
-with tab3:
-    # 3D ocean code
-
-with tab4:
-    # AI navigation
 
 
