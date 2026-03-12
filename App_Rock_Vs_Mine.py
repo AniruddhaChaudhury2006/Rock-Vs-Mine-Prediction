@@ -7,7 +7,7 @@ import shap
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 st.set_page_config(page_title = "Rock Vs Mine Prediction System", layout = 'wide')
-st.markdown("""<style> body { background-color: #0E1117; } .stApp {  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364); color:white; </style>""", unsafe_allow_html = True)
+st.markdown("""<style> body { background-color: #0E1117; } .stApp {  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364); color:white;} </style>""", unsafe_allow_html = True)
 st.title("🔎 🧠 Futuristic Rock vs Mine AI Detection System")
 sonar_data = pd.read_csv('sonar_dataset.csv', header = None)
 X = sonar_data.drop(columns=60, axis=1)
@@ -23,7 +23,7 @@ else:
   default = np.zeros(60)
 input_data = []
 for i in range(60):
-  val = st.number_input(f"Value {i + 1}")
+  val = st.number_input(f"Value {i + 1}", value = float(default[i]))
   input_data.append(val)
 input_data_as_numpy_array = np.asarray(input_data)
 input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
@@ -43,10 +43,13 @@ if st.sidebar.button("Predict"):
   radar.add_trace(go.Scatterpolar(r = input_data[:10], theta = [f"S{i + 1}" for i in range(10)], fill = 'toself', name = 'Signals'))
   radar.update_layout(polar = dict(radialaxis = dict(visible = True)), showlegend = False, title = "Sonar Signal Radar Chart")
   st.plotly_chart(radar, use_container_width = True)
-st.subheader("🧠 SHAP Explainable AI")
-explainer = shap.LinearExplainer(model, X_train)
-shap_values = explainer.shap_values(X_test)
-fig2 = px.bar(x = [f"S{i}" for i in range(len(shap_values[0]))], y = shap_values[0], title = "Feature Impact on Prediction")
-st.plotly_chart(fig2, use_container_width = True)
+try:
+  st.subheader("🧠 SHAP Explainable AI")
+  explainer = shap.LinearExplainer(model, X_train)
+  shap_values = explainer.shap_values(X_test)
+  fig2 = px.bar(x = [f"S{i}" for i in range(len(shap_values[0]))], y = shap_values[0], title = "Feature Impact on Prediction")
+  st.plotly_chart(fig2, use_container_width = True)
+except Exception as e:
+  st.warning("SHAP visualization not supported in this environment.")
 
 
