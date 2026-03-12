@@ -7,8 +7,54 @@ import shap
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 st.set_page_config(page_title = "Rock Vs Mine Prediction System", layout = 'wide')
-st.markdown("""<style> body { background-color: #0E1117; } .stApp {  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364); color:white;} </style>""", unsafe_allow_html = True)
-st.title("🔎 🧠 Futuristic Rock vs Mine AI Detection System")
+st.markdown("""
+<style>
+
+/* App background */
+.stApp {
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+}
+
+/* Main text */
+html, body, [class*="css"]  {
+    color: #FFFFFF;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #0E1117;
+    color: white;
+}
+
+/* Headers */
+h1, h2, h3 {
+    color: #00F5FF;
+}
+
+/* Subheaders */
+h4, h5, h6 {
+    color: #7DF9FF;
+}
+
+/* Buttons */
+.stButton>button {
+    background-color: #00F5FF;
+    color: black;
+    border-radius: 8px;
+}
+
+/* Slider text */
+label {
+    color: white;
+}
+
+</style>
+.block-container {
+    background: rgba(0,0,0,0.3);
+    padding: 20px;
+    border-radius: 12px;
+}
+""", unsafe_allow_html=True)st.title("🔎 🧠 Futuristic Rock vs Mine AI Detection System")
 sonar_data = pd.read_csv('sonar_dataset.csv', header = None)
 X = sonar_data.drop(columns=60, axis=1)
 Y = sonar_data[60]
