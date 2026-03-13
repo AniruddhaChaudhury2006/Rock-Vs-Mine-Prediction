@@ -77,13 +77,6 @@ model.fit(X_train, Y_train)
 layout_mode = "wide"  # default desktop
 if st.runtime.exists():  # runtime check
     layout_mode = "centered"  # mobile-friendly
-
-st.set_page_config(
-    page_title="Rock Vs Mine Prediction System",
-    layout=layout_mode,
-    initial_sidebar_state="expanded"
-)
-
 # Sidebar sliders
 with st.sidebar:
     st.header("Signal Controls")
@@ -100,7 +93,7 @@ input_data = wave + noise_signal
 input_data = np.clip(input_data, 0, 1)
 input_data_reshaped = input_data.reshape(1,-1)
 wave_fig = px.line(x = range(60), y = input_data, title = "Live Sonar Signal Waveform")
-col1, col2 = st.columns([2, 1])
+is_mobile = st.session_state.get("is_mobile", False)
 with col1:
     wave_fig.update_layout(template="plotly_dark")
     st.plotly_chart(wave_fig, use_container_width=True)
@@ -327,4 +320,6 @@ for step in range(80):
     ocean_chart.plotly_chart(fig_ocean, use_container_width=True)
 
     time.sleep(0.15)
-
+screen_width = st.experimental_get_query_params().get("width", [1024])[0]
+is_mobile = int(screen_width) < 768
+st.session_state.is_mobile = is_mobile
