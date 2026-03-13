@@ -8,7 +8,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 import time
 
-st.set_page_config(page_title = "Rock Vs Mine Prediction System", layout = 'wide')
+st.set_page_config(
+    page_title="Rock Vs Mine Prediction System",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 st.markdown("""
 <style>
 
