@@ -73,11 +73,26 @@ Y = sonar_data[60]
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = 0.1, stratify = Y, random_state = 25)
 model = LogisticRegression(max_iter = 1000)
 model.fit(X_train, Y_train)
-st.sidebar.header("Signal Controls")
-st.sidebar.subheader("🌊 Sonar Wave Generator")
-amplitude = st.sidebar.slider("Signal strength",0.1,1.0,0.5)
-frequency = st.sidebar.slider("Wave Frequency",0.1,10.0,3.0)
-noise = st.sidebar.slider("Ocean Noise",0.0,0.5,0.05)
+# Detect mobile and adapt sidebar
+layout_mode = "wide"  # default desktop
+if st.runtime.exists():  # runtime check
+    layout_mode = "centered"  # mobile-friendly
+
+st.set_page_config(
+    page_title="Rock Vs Mine Prediction System",
+    layout=layout_mode,
+    initial_sidebar_state="expanded"
+)
+
+# Sidebar sliders
+with st.sidebar:
+    st.header("Signal Controls")
+    st.subheader("🌊 Sonar Wave Generator")
+    amplitude = st.slider("Signal strength",0.1,1.0,0.5)
+    frequency = st.slider("Wave Frequency",0.1,10.0,3.0)
+    noise = st.slider("Ocean Noise",0.0,0.5,0.05)
+
+
 x = np.linspace(0, 10, 60)
 wave = amplitude * np.sin(frequency * x)
 noise_signal = np.random.normal(0, noise, 60)
