@@ -32,7 +32,7 @@ h1, h2, h3 {
 }
 
 /* Text */
-p, label, span, div {
+p, label, span {
     color: white !important;
 }
 
